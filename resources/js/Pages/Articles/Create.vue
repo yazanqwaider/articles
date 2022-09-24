@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import SectionBorder from '@/Components/SectionBorder.vue';
 import { Link, useForm } from '@inertiajs/inertia-vue3';
@@ -10,9 +10,11 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import EditorJS from '@editorjs/editorjs';
+import Header from '@editorjs/header';
 
 const title = ref(null);
-const content = ref(null);
+let contentEditor = ref(null);
 const preview_image = ref(null);
 const tags = ref([]);
 let tmpPreviewImageUrl = ref(null);
@@ -31,7 +33,15 @@ const changePreviewImage = (e) => {
     }
 };
 
-const createArticle = () => {
+const createArticle = async () => {
+    try {
+        form.content = await contentEditor.save();
+    } catch (error) {
+        console.log(error);
+        form.content = '';
+        return false;
+    }
+
     form.post(route('articles.store', {
         errorBag: 'createArticle',
         preserveScroll: true,
@@ -44,6 +54,16 @@ const createArticle = () => {
         },
     }));
 };
+
+onMounted(() => {
+    contentEditor = new EditorJS({
+        holder: "articleContent",
+
+        tools: {
+            header: Header
+        }
+    });
+});
 </script>
     
 <template>
@@ -86,6 +106,17 @@ const createArticle = () => {
                             />
                             <InputError :message="form.errors.title" class="mt-2" />
                         </div>
+
+
+                        <div class="col-span-6 sm:col-span-4">
+                            <InputLabel for="articleContent" value="Content" />
+
+                            <div id="articleContent"></div>
+
+                            <InputError :message="form.errors.content" class="mt-2" />
+                        </div>
+
+
                     </template>
 
                     <template #actions>

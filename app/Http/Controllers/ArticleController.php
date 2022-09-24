@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Articles\CreateArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -34,9 +36,17 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateArticleRequest $request)
     {
-        // 
+        $image = $request->file('preview_image')->store('articles/images');
+
+        Auth::user()->articles()->create([
+            'title'         => $request->title,
+            'content'       => $request->content['blocks'],
+            'preview_image' => $image
+        ]);
+
+        return Inertia::render('Welcome');
     }
 
     /**
