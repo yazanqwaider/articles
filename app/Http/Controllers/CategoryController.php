@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
-use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Articles\CreateArticleRequest;
 
-class ArticleController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,11 +24,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-
-        return Inertia::render('Articles/Create', [
-            'categories' => $categories
-        ]);
+        //
     }
 
     /**
@@ -41,27 +33,18 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateArticleRequest $request)
+    public function store(Request $request)
     {
-        $image = $request->file('preview_image')->store('articles/images');
-
-        Auth::user()->articles()->create([
-            'title'         => $request->title,
-            'content'       => $request->content['blocks'],
-            'preview_image' => $image,
-            'category_id'   => $request->category_id
-        ]);
-
-        return Inertia::render('Welcome');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Article  $article
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Category $category)
     {
         //
     }
@@ -69,10 +52,10 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Article  $article
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit(Category $category)
     {
         //
     }
@@ -81,10 +64,10 @@ class ArticleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Article  $article
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, Category $category)
     {
         //
     }
@@ -92,10 +75,10 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Article  $article
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Category $category)
     {
         //
     }

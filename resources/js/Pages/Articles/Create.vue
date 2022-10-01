@@ -18,12 +18,18 @@ let contentEditor = ref(null);
 const preview_image = ref(null);
 const tags = ref([]);
 let tmpPreviewImageUrl = ref(null);
+const category_id = ref(null);
+
+const props = defineProps({
+  categories: Array
+});
 
 const form = useForm({
     title: '',
     content: '',
     preview_image: '',
     tags: [],
+    category_id: '',
 });
 
 const changePreviewImage = (e) => {
@@ -107,7 +113,6 @@ onMounted(() => {
                             <InputError :message="form.errors.title" class="mt-2" />
                         </div>
 
-
                         <div class="col-span-6 sm:col-span-4">
                             <InputLabel for="articleContent" value="Content" />
 
@@ -116,6 +121,17 @@ onMounted(() => {
                             <InputError :message="form.errors.content" class="mt-2" />
                         </div>
 
+                        <div class="col-span-6 sm:col-span-4">
+                            <InputLabel for="articleCategory" value="Category" />
+
+                            <select id="articleCategory" v-model="form.category_id">
+                                <option v-for="category in categories" :value="category.id" :key="'category_'+category.id">
+                                    {{ category.name }}
+                                </option>
+                            </select>
+
+                            <InputError :message="form.errors.category" class="mt-2" />
+                        </div>
 
                     </template>
 

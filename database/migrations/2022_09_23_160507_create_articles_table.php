@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('preview_image');
+            $table->foreignId('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }
