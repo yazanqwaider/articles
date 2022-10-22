@@ -84,19 +84,27 @@ onMounted(() => {
             <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
                 
                 <FormSection @submitted="createArticle">
-                    <template #title>
-                        Create Article
-                    </template>
-
                     <template #form>
                         <div class="col-span-6 sm:col-span-4">
-                            <InputLabel for="previewImage" value="Image" />
-
-                            <input type="file" id="previewImage" @change="changePreviewImage">
-
-                            <template v-if="tmpPreviewImageUrl">
-                                <img :src="tmpPreviewImageUrl" alt="preview image">
-                            </template>
+                            <div class="flex">
+                                <div>
+                                    <label for="previewImage" class="border p-2 cursor-pointer rounded-md shadow-sm hover:shadow-lg my-2 transition">
+                                        Upload Image 
+                                        <svg 
+                                            xmlns="http://www.w3.org/2000/svg" 
+                                            width="30"
+                                            height="30"
+                                            class="inline-block" viewBox="0 0 512 512">
+                                            <title>Image</title><rect x="48" y="80" width="416" height="352" rx="48" ry="48" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/><circle cx="336" cy="176" r="32" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path d="M304 335.79l-90.66-90.49a32 32 0 00-43.87-1.3L48 352M224 432l123.34-123.34a32 32 0 0143.11-2L464 368" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                                        </svg>
+                                    </label>
+                                    <input type="file" id="previewImage" class="hidden" @change="changePreviewImage" accept="image/*">
+                                </div>
+    
+                                <template v-if="tmpPreviewImageUrl">
+                                    <img :src="tmpPreviewImageUrl" alt="preview image" class="mx-2 h-36 rounded-md">
+                                </template>
+                            </div>
                       
                             <InputError :message="form.errors.title" class="mt-2" />
                         </div>
