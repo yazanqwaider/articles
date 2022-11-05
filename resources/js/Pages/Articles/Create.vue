@@ -12,6 +12,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
+import ImageTool from '@editorjs/image';
 
 const title = ref(null);
 let contentEditor = ref(null);
@@ -21,7 +22,8 @@ let tmpPreviewImageUrl = ref(null);
 const category_id = ref(null);
 
 const props = defineProps({
-  categories: Array
+  categories: Array,
+  csrf: String
 });
 
 const form = useForm({
@@ -66,7 +68,19 @@ onMounted(() => {
         holder: "articleContent",
 
         tools: {
-            header: Header
+            header: Header,
+            image: {
+                class: ImageTool,
+                config: {
+                    endpoints: {
+                        byFile: 'http://127.0.0.1:8000/upload-content-article-image',
+                        // byUrl: 'http://127.0.0.1:8000/upload-content-article-image'
+                    },
+                    additionalRequestData: {
+                        '_token': props.csrf
+                    }
+                }
+            }
         }
     });
 });

@@ -25,4 +25,6 @@ Route::middleware([
     Route::get('/', [HomeController::class, 'home'])->name('home');
 
     Route::resource('articles', ArticleController::class);
+
+    Route::post('/upload-content-article-image', [ArticleController::class, 'uploadArticleContentImage']);
 });

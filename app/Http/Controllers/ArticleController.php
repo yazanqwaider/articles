@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Articles\CreateArticleRequest;
 
 class ArticleController extends Controller
@@ -31,7 +32,8 @@ class ArticleController extends Controller
         $categories = Category::all();
 
         return Inertia::render('Articles/Create', [
-            'categories' => $categories
+            'categories' => $categories,
+            'csrf' => csrf_token()
         ]);
     }
 
@@ -98,5 +100,19 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         //
+    }
+
+    /**
+     * Upload article content image.
+     * 
+     * @param Request $request
+     */
+    public function uploadArticleContentImage(Request $request) {        
+        if($request->hasFile('image')) {
+            $image_path = $request->file('image')->store('/articles/images/content');
+            $url = Storage::url($image_path);
+            return response()->json(['success' => true, 'file' => ['url' => $url]]);
+        }
+        return response()->json(['success' => false, 'file' => ['url' => null]]);
     }
 }
