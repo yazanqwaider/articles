@@ -14,6 +14,7 @@ import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import ImageTool from '@editorjs/image';
 import Table from '@editorjs/table';
+import Quote from '@editorjs/quote';
 
 const title = ref(null);
 let contentEditor = ref(null);
@@ -71,6 +72,7 @@ onMounted(() => {
         tools: {
             header: Header,
             table: Table,
+            quote: Quote,
             image: {
                 class: ImageTool,
                 config: {
