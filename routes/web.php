@@ -4,6 +4,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\UrlFetchingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,9 @@ use App\Http\Controllers\ArticleController;
 |
 */
 
+Route::get('/test', function(){
+    return '<p>sdf<mark class="cdx-marker">sdfsdf </mark>sdfsd fsdf</p>';
+});
 
 Route::middleware([
     'auth:sanctum',
@@ -27,4 +31,6 @@ Route::middleware([
     Route::resource('articles', ArticleController::class);
 
     Route::post('/upload-content-article-image', [ArticleController::class, 'uploadArticleContentImage']);
+
+    Route::get('fetchUrlMeta', [UrlFetchingController::class, 'fetchUrlMeta']);
 });

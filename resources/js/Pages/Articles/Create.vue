@@ -15,6 +15,11 @@ import Header from '@editorjs/header';
 import ImageTool from '@editorjs/image';
 import Table from '@editorjs/table';
 import Quote from '@editorjs/quote';
+import List from '@editorjs/list';
+import NestedList from '@editorjs/nested-list';
+import LinkTool from '@editorjs/link';
+import Delimiter from '@editorjs/delimiter';
+import Marker from '@editorjs/marker';
 
 const title = ref(null);
 let contentEditor = ref(null);
@@ -73,6 +78,21 @@ onMounted(() => {
             header: Header,
             table: Table,
             quote: Quote,
+            delimiter: Delimiter,
+            marker: {
+                class: Marker,
+                shortcut: "CMD+SHIFT+M"
+            },
+            list: {
+                class: NestedList,
+                inlineToolbar: true,
+            },
+            link: {
+                class: LinkTool,
+                config: {
+                    endpoint: "http://127.0.0.1:8000/fetchUrlMeta"
+                }
+            },
             image: {
                 class: ImageTool,
                 config: {

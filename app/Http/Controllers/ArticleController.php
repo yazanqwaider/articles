@@ -65,7 +65,10 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        $article->load(['author', 'category']);
+        return Inertia::render('Articles/Show', [
+            'article' => $article
+        ]);
     }
 
     /**
