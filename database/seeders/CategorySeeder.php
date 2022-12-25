@@ -12,13 +12,32 @@ class CategorySeeder extends Seeder
 
     public function __construct() {
         $this->categories = [
-            ['name' => 'Technology'],
-            ['name' => 'Financial'],
-            ['name' => 'Religion'],
+            ['name' => 'Arts & Entertainment'],
+            ['name' => 'Autos & Vehicles'],
+            ['name' => 'Beauty & Fitness'],
+            ['name' => 'Books & Literature'],
+            ['name' => 'Business & Industrial'],
+            ['name' => 'Computers & Electronics'],
+            ['name' => 'Finance'],
             ['name' => 'Food & Drink'],
+            ['name' => 'Games'],
             ['name' => 'Health'],
-            ['name' => 'Business'],
-            ['name' => 'Relationships'],
+            ['name' => 'Hobbies & Leisure'],
+            ['name' => 'Home & Garden'],
+            ['name' => 'Internet & Telecom'],
+            ['name' => 'Jobs & Education'],
+            ['name' => 'Law & Government'],
+            ['name' => 'News'],
+            ['name' => 'Online Communities'],
+            ['name' => 'People & Society'],
+            ['name' => 'Pets & Animals'],
+            ['name' => 'Real Estate'],
+            ['name' => 'Reference'],
+            ['name' => 'Science'],
+            ['name' => 'Shopping'],
+            ['name' => 'Sports'],
+            ['name' => 'Travel'],
+            ['name' => 'Other'],
         ];
     }
 
