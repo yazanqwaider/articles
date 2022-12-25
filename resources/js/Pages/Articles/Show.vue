@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import HtmlViewer from 'editorjs-html-viewer/dist/index';
 
 const props = defineProps(['article']);
 
@@ -10,6 +11,10 @@ onMounted(() => {
 });
 
 </script>
+
+<style>
+    @import 'editorjs-html-viewer/dist/css/main.css';
+</style>
 
 <template>
     <AppLayout title="Show Article">

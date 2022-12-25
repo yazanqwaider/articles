@@ -118,4 +118,44 @@ class ArticleController extends Controller
         }
         return response()->json(['success' => false, 'file' => ['url' => null]]);
     }
+
+
+    /**
+     * Upload presonal image.
+     * 
+     * @param Request $request
+     */
+    public function uploadPersonalityImage(Request $request) {
+        if($request->hasFile('image')) {
+            $image_path = $request->file('image')->store('/articles/images/peronality');
+            $url = Storage::url($image_path);
+            return response()->json(['success' => true, 'file' => ['url' => $url]]);
+        }
+        return response()->json(['success' => false, 'file' => ['url' => null]]);
+    }
+
+    /**
+     * Upload attachment file.
+     * 
+     * @param Request $request
+     */
+    public function uploadAttachment(Request $request) {
+        if($request->hasFile('file')) {
+            $file = $request->file('file');
+            $image_path = $file->store('/articles/images/attachments');
+            $url = Storage::url($image_path);
+            $size = $file->getSize() / (1024 * 1024);
+            $extension = pathinfo($url, PATHINFO_EXTENSION);
+            $name = $file->getClientOriginalName();
+
+            return response()->json(['success' => true, 'file' => [
+                'url' => $url,
+                'size' => $size,
+                'extension' => $extension,
+                'name' => $name,
+                ]
+            ]);
+        }
+        return response()->json(['success' => false, 'file' => ['url' => null]]);
+    }
 }

@@ -17,10 +17,6 @@ use App\Http\Controllers\UrlFetchingController;
 |
 */
 
-Route::get('/test', function(){
-    return '<p>sdf<mark class="cdx-marker">sdfsdf </mark>sdfsd fsdf</p>';
-});
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -32,5 +28,12 @@ Route::middleware([
 
     Route::post('/upload-content-article-image', [ArticleController::class, 'uploadArticleContentImage']);
 
+    Route::post('/upload-personality-image', [ArticleController::class, 'uploadPersonalityImage'])
+                                    ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+
+
+    Route::post('/upload-attachment', [ArticleController::class, 'uploadAttachment']);
+
+                                    
     Route::get('fetchUrlMeta', [UrlFetchingController::class, 'fetchUrlMeta']);
 });

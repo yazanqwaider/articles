@@ -20,6 +20,14 @@ import NestedList from '@editorjs/nested-list';
 import LinkTool from '@editorjs/link';
 import Delimiter from '@editorjs/delimiter';
 import Marker from '@editorjs/marker';
+import InlineCode from '@editorjs/inline-code';
+import Underline from '@editorjs/underline';
+import Checklist from '@editorjs/checklist';
+import Warning from '@editorjs/warning';
+import CodeTool from '@editorjs/code';
+import Embed from '@editorjs/embed';
+import Personality from '@editorjs/personality';
+import AttachesTool from '@editorjs/attaches';
 
 const title = ref(null);
 let contentEditor = ref(null);
@@ -79,6 +87,27 @@ onMounted(() => {
             table: Table,
             quote: Quote,
             delimiter: Delimiter,
+            underline: Underline,
+            warning: Warning,
+            code: CodeTool,
+            attaches: {
+                class: AttachesTool,
+                config: {
+                    endpoint: 'http://127.0.0.1:8000/upload-attachment',
+                    additionalRequestHeaders: {
+                        "X-CSRF-TOKEN": props.csrf
+                    }
+                }
+            },
+            personality: {
+                class: Personality,
+                config: {
+                    endpoint: 'http://127.0.0.1:8000/upload-personality-image',
+                    additionalRequestHeaders: {
+                        "X-CSRF-TOKEN": props.csrf
+                    },
+                }
+            },
             marker: {
                 class: Marker,
                 shortcut: "CMD+SHIFT+M"
@@ -93,6 +122,14 @@ onMounted(() => {
                     endpoint: "http://127.0.0.1:8000/fetchUrlMeta"
                 }
             },
+            inlineCode: {
+                class: InlineCode,
+                shortcut: 'CMD+SHIFT+M',
+            },
+            checklist: {
+                class: Checklist,
+                inlineToolbar: true,
+            },
             image: {
                 class: ImageTool,
                 config: {
@@ -104,7 +141,13 @@ onMounted(() => {
                         '_token': props.csrf
                     }
                 }
-            }
+            },
+            embed: {
+                class: Embed,
+                config: {
+                    inlineToolbar: true
+                }
+            },
         }
     });
 });
